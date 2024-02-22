@@ -71,6 +71,14 @@ document.addEventListener('DOMContentLoaded', function () {
   bindEditButtons();
   bindFormSubmissions();
 });
+// Edit-cancel button
+function cancelEditForm(noteId) {
+  const form = document.querySelector(`form[data-doc='${noteId}']`);
+  if (form) {
+    form.style.display = 'none';
+  }
+}
+
 
 function bindEditButtons() {
   document.querySelectorAll('.edit').forEach(button => {
@@ -89,7 +97,7 @@ function bindFormSubmissions() {
   document.querySelectorAll('.editForm').forEach(form => {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      const noteId = form.getAttribute('data-doc'); // 确保这里正确获取noteId
+      const noteId = form.getAttribute('data-doc');
       const content = this.querySelector('textarea[name="content"]').value;
 
       fetch(`/notes/update/${noteId}`, {
@@ -102,7 +110,7 @@ function bindFormSubmissions() {
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            window.location.reload(); // 或者其他逻辑，比如直接更新页面上的笔记内容而不是重载页面
+            window.location.reload();
           } else {
             alert('Error updating note');
           }
