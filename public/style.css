@@ -1,0 +1,373 @@
+:root {
+  --white-color: #f4e5ce;
+  --light-color: #e3be86;
+  --normal-color: #CE9237;
+  --middle-color: #6F493D;
+  --dark-color: #402E32;
+  --big-font-size: 48px;
+  --h2-font-size: 30px;
+  --h3-font-size: 19px;
+  --normal-font-size: 16px;
+  --smaller-font-size: 14px;
+  --font-semi: 600;
+  --nav-height: 64px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  color: var(--middle-color);
+  background-color: transparent;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+
+body {
+  background-image: url('img/background.png');
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 100%;
+  font-family: 'Fredoka', 'Roboto', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+textarea {
+  resize: none;
+}
+
+/* nav */
+.nav_container {
+  z-index: 100;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  right: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background-color: var(--middle-color);
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--light-color);
+}
+
+.nav_container a {
+  color: var(--light-color);
+  font-weight: var(--font-semi);
+}
+
+.nav_container li {
+  margin-right: 48px;
+}
+
+.last_li {
+  margin-right: 80px;
+}
+
+.error404 {
+  margin: 30% auto;
+  color: var(--dark-color);
+  font-size: var(--big-font-size);
+  text-align: center;
+}
+
+.home_container {
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  height: 100vh;
+  align-items: center;
+}
+
+.leftHomerContainer {
+  position: relative;
+  flex: 5.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 400px;
+}
+
+.frontTitle {
+  position: absolute;
+  margin-top: -290px;
+  text-align: left;
+  font-size: var(--h2-font-size);
+  color: var(--middle-color);
+}
+
+.mainTitle {
+  position: absolute;
+  margin-top: -185px;
+  font-size: 300%;
+  text-align: left;
+  color: var(--middle-color);
+}
+
+.subtitle {
+  font-size: var(--h3-font-size);
+  text-align: left;
+  margin-top: 150px;
+  line-height: 200%;
+  color: var(--dark-color);
+}
+
+.highlight {
+  color: var(--normal-color)
+}
+
+.rightHomerContainer {
+  flex: 4.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 400px;
+  width: 90%;
+  margin: 40px auto;
+  padding: 16px;
+  background-color: var(--middle-color);
+  border: 1.6px solid var(--dark-color);
+}
+
+.inputDate {
+  position: absolute;
+  font-size: var(--normal-font-size);
+  width: auto;
+  height: auto;
+  left: 16px;
+  top: 16px;
+  color: var(--dark-color);
+  background-color: var(--white-color);
+}
+
+.inputOuter {
+  position: absolute;
+  margin: 40px auto;
+  height: 288px;
+  width: 93%;
+  text-align: start;
+  background-color: var(--white-color);
+}
+
+.inputText {
+  position: absolute;
+  font-size: var(--normal-font-size);
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  color: var(--dark-color);
+}
+
+.wordCount {
+  position: absolute;
+  font-size: var(--smaller-font-size);
+  color: #6F493D;
+  bottom: 62px;
+  right: 30px;
+}
+
+.cleanButton {
+  position: absolute;
+  font-weight: 200;
+  width: 80px;
+  height: 24px;
+  right: 112px;
+  bottom: 12.8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--dark-color);
+  background-color: var(--white-color);
+  font-size: var(--normal-font-size);
+}
+
+.submitButton {
+  position: absolute;
+  width: 80px;
+  right: 24px;
+  height: 24px;
+  bottom: 12.8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--dark-color);
+  background-color: var(--white-color);
+  font-size: var(--normal-font-size);
+}
+
+/* notes display */
+.displayContainer {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+  width: 100vh;
+  height: 800px;
+}
+
+.displayMainTitle {
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  margin-top: calc(100px + var(--nav-height));
+  margin-bottom: 80px;
+  font-size: var(--big-font-size);
+  color: var(--middle-color);
+}
+
+.displayNotes {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+.displayNotes ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 45px;
+}
+
+.displayNotes li {
+  width: 300px;
+  height: 350px;
+}
+
+.noteItem {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--middle-color);
+}
+
+.noteActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  right: 20px;
+  top: 8%;
+  width: 80px;
+  transform: translateY(-50%);
+}
+
+.noteActions a {
+  visibility: hidden;
+  margin-left: 8px;
+}
+
+.noteActions a img {
+  width: 28px;
+  height: auto;
+  cursor: pointer;
+}
+
+
+.noteItem:hover .noteActions a {
+  visibility: visible;
+}
+
+.noteDate {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  top: 0;
+  left: 0;
+  height: 15%;
+  line-height: 15%;
+  padding: 10px;
+  color: var(--light-color);
+}
+
+.noteContent {
+  position: absolute;
+  bottom: 0;
+  height: 85%;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--white-color);
+  color: var(--dark-color);
+  font-size: var(--normal-font-size);
+}
+
+.editForm {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  /* display: none; */
+  height: 85%;
+  width: 100%;
+  color: var(--dark-color);
+  background-color: var(--white-color);
+
+}
+
+.editForm textarea {
+  font-size: var(--normal-font-size);
+  width: 100%;
+  /* Adjust the calc() as needed to account for padding */
+  height: 100%;
+  padding: 10px;
+  /* Adjust based on your layout and other buttons */
+  /* Add any additional styles for padding, borders, etc. */
+}
+
+.displayNotice {
+  margin-top: 80px;
+  line-height: 40px;
+  text-align: center;
+  color: var(--middle-color);
+  font-size: 22px;
+}
+
+/* footer */
+.footerContainer {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.footer {
+  /* position: sticky;
+  bottom: 0;
+  left: 0; */
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  font-size: var(--normal-font-size);
+  background-color: var(--middle-color);
+  color: var(--light-color);
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>My DailyNote</title>
+</head>
+
+<body>
+  <%- include('./partials/nav.ejs') %>
+
+    <section class="home_container" id="home">
+      <div class="leftHomerContainer">
+        <h2 class="frontTitle">Hi! Welcome to <span class="highlight">DailyNote</span>.</h2>
+        <h1 class="mainTitle">What did you do today?</h1>
+        <h5 class="subtitle">Congrats on another day down.<br />
+          Didn't do much? Don't feel like jotting it down?<br />
+          No worries at all. <br />
+          After all, our life stories are made up not just by those shining moments but also by all those
+          regular, overlooked days.</h5>
+      </div>
+
+      <div class="rightHomerContainer">
+        <form class="inputContainer" name="noteForm" onsubmit="return validateForm()" action="/notes" method="POST">
+          <input class="inputDate" type="date" name="fdate" id="fdate">
+          <div class="inputOuter"><textarea class="inputText" name="fnote" id="fnote" maxlength="371"
+              oninput="updateInputCount()"></textarea></div>
+          <div class="wordCount" id="wordCount">0/371</div>
+          <button type="button" class="cleanButton" onclick="cleanInputContent()">clean</button>
+          <input type="submit" value="submit" class="submitButton">
+        </form>
+      </div>
+    </section>
+    <section class="displayContainer" id="notes">
+      <h1 class="displayMainTitle">What did I do before</h1>
+
+      <div class="displayNotes">
+        <% if(storedNotes.length> 0) { %>
+          <ul>
+            <% storedNotes.forEach(function(note) { %>
+              <li id="note-<%= note._id %>">
+                <div class="noteItem">
+                  <div class="noteDate">
+                    <%= note.formattedDate %>
+                  </div>
+                  <div class="noteActions">
+                    <a href="javascript:void(0)" class="edit" data-doc="<%= note._id %>"><img src="img/originalEdit.png"
+                        alt="Edit"></a>
+                    <a href="javascript:void(0)" class="delete" data-doc="<%= note._id %>"><img
+                        src="img/closedDustbin.png" alt="Delete"></a>
+                  </div>
+
+                  <div class="noteContent" id="content-<%= note._id %>">
+                    <%= note.content %>
+                  </div>
+                  <!-- Hidden Edit Form -->
+                  <form class="editForm" action="/notes/update/<%= note._id %>" method="POST"
+                    id="editForm-<%= note._id %>" style="display: none;">
+                    <textarea name="content"><%= note.content %></textarea>
+                    <button type="submit">Save Changes</button>
+                    <button type="button" onclick="hideEditForm('<%= note._id %>')">Cancel</button>
+                  </form>
+
+                </div>
+              </li>
+              <% }); %>
+
+          </ul>
+          <% } else { %>
+            <p class="displayNotice">There are no notes at the moment.<br />
+              How about creating one?</p>
+            <% } %>
+
+      </div>
+    </section>
+    <%- include('./partials/footer.ejs') %>
+
+
+      <script src="script.js"></script>
+</body>
+
+</html>
