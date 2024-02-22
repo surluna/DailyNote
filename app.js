@@ -59,6 +59,21 @@ function formatDate(date) {
   return `${day}/${month}/${year}`;
 }
 
+app.get('/notes/check-date/:date', async (req, res) => {
+  const { date } = req.params;
+  try {
+    const note = await Note.findOne({ date: new Date(date) });
+    if (note) {
+      res.json({ exists: true });
+    } else {
+      res.json({ exists: false });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error checking the note date." });
+  }
+});
+
 app.post('/notes', (req, res) => {
   const note = new Note({
     date: req.body.fdate,
@@ -71,7 +86,6 @@ app.post('/notes', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send("Unable to save the note.");
     });
 });
 

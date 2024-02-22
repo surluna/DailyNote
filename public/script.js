@@ -33,13 +33,40 @@ function updateInputCount() {
   wordCount.textContent = currentLength + "/400"
 }
 //vaildate form
-function validateForm() {
-  let x = document.getElementById("fnote").value.trim()
-  if (x == null || x == "") {
-    alert("Content cannot be empty.")
-    return false
+async function validateForm() {
+  let content = document.getElementById("fnote").value.trim();
+  let date = document.getElementById("fdate").value;
+
+  if (!content) {
+    alert("Content cannot be empty.");
+    return false;
+  }
+
+  try {
+    // 确保这里的URL是正确的，并且服务器端对应的路由是存在的
+    const response = await fetch(`/notes/check-date/${date}`, {
+      method: 'GET'
+    });
+    // 检查响应是否ok（即状态码在200-299的范围内）
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    if (data.exists) {
+      alert("A note for this date already exists. Please edit the existing note.");
+      return false;
+    } else {
+      return true;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert("Failed to validate date.");
+    return false;
   }
 }
+
+
 //clean button
 function cleanInputContent() {
   document.getElementById("fnote").value = "";
@@ -72,15 +99,15 @@ document.addEventListener('DOMContentLoaded', function () {
   bindCancelButtons();
   document.querySelectorAll('.delete').forEach(button => {
     button.addEventListener('mouseenter', function () {
-      this.querySelector('img').src = 'img/openDustbin.png';
+      this.querySelector('img').src = 'img/dustbinHover.png';
     });
 
     button.addEventListener('mouseleave', function () {
-      this.querySelector('img').src = 'img/closedDustbin.png';
+      this.querySelector('img').src = 'img/defaultDustbin.png';
     });
 
     button.addEventListener('click', function () {
-      this.querySelector('img').src = 'img/openDustbin.png';
+      this.querySelector('img').src = 'img/dustbinHover.png';
     });
   });
   document.querySelectorAll('.edit').forEach(button => {
@@ -89,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     button.addEventListener('mouseleave', function () {
-      this.querySelector('img').src = 'img/originalEdit.png';
+      this.querySelector('img').src = 'img/defaultEdit.png';
     });
 
     button.addEventListener('click', function () {

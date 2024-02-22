@@ -27,7 +27,7 @@
           <input class="inputDate" type="date" name="fdate" id="fdate">
           <div class="inputOuter"><textarea class="inputText" name="fnote" id="fnote" maxlength="400"
               oninput="updateInputCount()"></textarea></div>
-          <div class="wordCount" id="wordCount">0/371</div>
+          <div class="wordCount" id="wordCount">0/400</div>
           <button type="button" class="cleanButton" onclick="cleanInputContent()">clean</button>
           <input type="submit" value="submit" class="submitButton">
         </form>
@@ -47,10 +47,10 @@
                   </div>
                   <div class="noteActions">
                     <a href="javascript:void(0)" class="edit" data-doc="<%= note._id %>"
-                      data-open-icon="img/originalEdit.png"><img src="img/originalEdit.png" alt="Edit"></a>
+                      data-open-icon="img/editHover.png"><img src="img/defaultEdit.png" alt="Edit"></a>
                     <a href="javascript:void(0)" class="delete" data-doc="<%= note._id %>"
-                      data-open-icon="img/openDustbin.png">
-                      <img src="img/closedDustbin.png" alt="Delete">
+                      data-open-icon="img/dustbinHover.png">
+                      <img src="img/defaultDustbin.png" alt="Delete">
                     </a> <a href="javascript:void(0)" class="save" data-doc="<%= note._id %>"
                       style="display: none;"><img src="img/saveIcon.png" alt="Save"></a>
                     <a href="javascript:void(0)" class="cancel" data-doc="<%= note._id %>" style="display: none;"><img
