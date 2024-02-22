@@ -66,39 +66,29 @@ deleteButtons.forEach(button => {
   });
 });
 
-// Edit function
 document.addEventListener('DOMContentLoaded', function () {
   bindEditButtons();
-  bindFormSubmissions();
+  bindSaveButtons();  // 确保这里是调用 bindSaveButtons
+  bindCancelButtons();  // 和 bindCancelButtons
 });
-// Edit-cancel button
-function cancelEditForm(noteId) {
-  const form = document.querySelector(`form[data-doc='${noteId}']`);
-  if (form) {
-    form.style.display = 'none';
-  }
-}
-
 
 function bindEditButtons() {
   document.querySelectorAll('.edit').forEach(button => {
     button.addEventListener('click', function (e) {
       e.preventDefault();
       const noteId = this.getAttribute('data-doc');
-      const form = document.querySelector(`form[data-doc='${noteId}']`);
-      if (form) {
-        form.style.display = 'block';
-      }
+      toggleFormAndActions(noteId, true); // 显示编辑表单和保存、取消按钮
     });
   });
 }
 
-function bindFormSubmissions() {
-  document.querySelectorAll('.editForm').forEach(form => {
-    form.addEventListener('submit', function (e) {
+function bindSaveButtons() {
+  document.querySelectorAll('.save').forEach(button => {
+    button.addEventListener('click', function (e) {
       e.preventDefault();
-      const noteId = form.getAttribute('data-doc');
-      const content = this.querySelector('textarea[name="content"]').value;
+      const noteId = this.getAttribute('data-doc');
+      const form = document.querySelector(`form[data-doc='${noteId}']`);
+      const content = form.querySelector('textarea[name="content"]').value;
 
       fetch(`/notes/update/${noteId}`, {
         method: 'POST',
@@ -120,11 +110,28 @@ function bindFormSubmissions() {
   });
 }
 
-
-function showEditForm(noteId) {
-  document.getElementById(`editForm-${noteId}`).style.display = 'block';
+function bindCancelButtons() {
+  document.querySelectorAll('.cancel').forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      const noteId = this.getAttribute('data-doc');
+      toggleFormAndActions(noteId, false); // 隐藏编辑表单，显示编辑和删除按钮
+    });
+  });
 }
 
-function hideEditForm(noteId) {
-  document.getElementById(`editForm-${noteId}`).style.display = 'none';
+function toggleFormAndActions(noteId, isEditing) {
+  const form = document.querySelector(`form[data-doc='${noteId}']`);
+  const editAndDelete = document.querySelectorAll(`.noteActions .edit[data-doc='${noteId}'], .noteActions .delete[data-doc='${noteId}']`);
+  const saveAndCancel = document.querySelectorAll(`.noteActions .save[data-doc='${noteId}'], .noteActions .cancel[data-doc='${noteId}']`);
+
+  if (isEditing) {
+    form.style.display = 'block';
+    editAndDelete.forEach(action => action.style.display = 'none');
+    saveAndCancel.forEach(action => action.style.display = 'inline-block');
+  } else {
+    form.style.display = 'none';
+    editAndDelete.forEach(action => action.style.display = 'inline-block');
+    saveAndCancel.forEach(action => action.style.display = 'none');
+  }
 }
