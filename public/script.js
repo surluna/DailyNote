@@ -68,8 +68,35 @@ deleteButtons.forEach(button => {
 
 document.addEventListener('DOMContentLoaded', function () {
   bindEditButtons();
-  bindSaveButtons();  // 确保这里是调用 bindSaveButtons
-  bindCancelButtons();  // 和 bindCancelButtons
+  bindSaveButtons();
+  bindCancelButtons();
+  document.querySelectorAll('.delete').forEach(button => {
+    button.addEventListener('mouseenter', function () {
+      this.querySelector('img').src = 'img/openDustbin.png';
+    });
+
+    button.addEventListener('mouseleave', function () {
+      this.querySelector('img').src = 'img/closedDustbin.png';
+    });
+
+    button.addEventListener('click', function () {
+      this.querySelector('img').src = 'img/openDustbin.png';
+    });
+  });
+  document.querySelectorAll('.edit').forEach(button => {
+    button.addEventListener('mouseenter', function () {
+      this.querySelector('img').src = 'img/editHover.png';
+    });
+
+    button.addEventListener('mouseleave', function () {
+      this.querySelector('img').src = 'img/originalEdit.png';
+    });
+
+    button.addEventListener('click', function () {
+      this.querySelector('img').src = 'img/editHover.png';
+    });
+  });
+
 });
 
 function bindEditButtons() {
@@ -77,7 +104,7 @@ function bindEditButtons() {
     button.addEventListener('click', function (e) {
       e.preventDefault();
       const noteId = this.getAttribute('data-doc');
-      toggleFormAndActions(noteId, true); // 显示编辑表单和保存、取消按钮
+      toggleFormAndActions(noteId, true);
     });
   });
 }
@@ -115,7 +142,7 @@ function bindCancelButtons() {
     button.addEventListener('click', function (e) {
       e.preventDefault();
       const noteId = this.getAttribute('data-doc');
-      toggleFormAndActions(noteId, false); // 隐藏编辑表单，显示编辑和删除按钮
+      toggleFormAndActions(noteId, false);
     });
   });
 }
