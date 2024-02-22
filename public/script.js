@@ -69,37 +69,40 @@ deleteButtons.forEach(button => {
 // Edit function
 document.addEventListener('DOMContentLoaded', function () {
   bindEditButtons();
+  bindFormSubmissions();
 });
 
 function bindEditButtons() {
   document.querySelectorAll('.edit').forEach(button => {
     button.addEventListener('click', function (e) {
       e.preventDefault();
-      const noteId = this.dataset.doc;
-      showEditForm(noteId);
+      const noteId = this.getAttribute('data-doc');
+      const form = document.querySelector(`form[data-doc='${noteId}']`);
+      if (form) {
+        form.style.display = 'block';
+      }
     });
   });
+}
 
-  // 绑定每个编辑表单的提交事件
+function bindFormSubmissions() {
   document.querySelectorAll('.editForm').forEach(form => {
     form.addEventListener('submit', function (e) {
-      e.preventDefault(); // 阻止表单的默认提交行为
-      const noteId = this.dataset.noteId; // 获取笔记ID
-      const content = this.querySelector('textarea[name="content"]').value; // 获取表单中的内容
+      e.preventDefault();
+      const noteId = form.getAttribute('data-doc'); // 确保这里正确获取noteId
+      const content = this.querySelector('textarea[name="content"]').value;
 
-      // 发送AJAX请求更新笔记
       fetch(`/notes/update/${noteId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content: content }), // 将内容转换为JSON字符串
+        body: JSON.stringify({ content: content }),
       })
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            // 更新成功，根据需要更新UI或重定向
-            window.location.reload(); // 例如，重新加载页面
+            window.location.reload(); // 或者其他逻辑，比如直接更新页面上的笔记内容而不是重载页面
           } else {
             alert('Error updating note');
           }
@@ -108,6 +111,7 @@ function bindEditButtons() {
     });
   });
 }
+
 
 function showEditForm(noteId) {
   document.getElementById(`editForm-${noteId}`).style.display = 'block';

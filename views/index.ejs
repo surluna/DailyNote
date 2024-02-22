@@ -56,12 +56,14 @@
                     <%= note.content %>
                   </div>
                   <!-- Hidden Edit Form -->
-                  <form class="editForm" action="/notes/update/<%= note._id %>" method="POST"
-                    id="editForm-<%= note._id %>" style="display: none;">
+                  <form class="editForm" action="/notes/update/<%= note._id %>" method="POST" data-doc="<%= note._id %>"
+                    style="display: none;">
                     <textarea name="content"><%= note.content %></textarea>
                     <button type="submit">Save Changes</button>
                     <button type="button" onclick="hideEditForm('<%= note._id %>')">Cancel</button>
                   </form>
+
+
 
                 </div>
               </li>
