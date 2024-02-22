@@ -41,18 +41,26 @@ body {
   background-image: url('img/background.png');
   background-position: center center;
   background-size: cover;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  min-height: 100vh;
   font-size: 100%;
   font-family: 'Fredoka', 'Roboto', sans-serif;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
+.noteContent,
 textarea {
+  padding: 12px;
+  font-weight: 400;
+  font-size: 18px;
+  font-family: 'Fredoka', 'Roboto', sans-serif;
+  color: var(--dark-color);
   resize: none;
 }
 
@@ -184,11 +192,9 @@ textarea {
 
 .inputText {
   position: absolute;
-  font-size: var(--normal-font-size);
   width: 100%;
   height: 100%;
   padding: 8px;
-  color: var(--dark-color);
 }
 
 .wordCount {
@@ -317,17 +323,13 @@ textarea {
   bottom: 0;
   height: 85%;
   width: 100%;
-  padding: 10px;
   background-color: var(--white-color);
-  color: var(--dark-color);
-  font-size: var(--normal-font-size);
 }
 
 .editForm {
   position: absolute;
   bottom: 0;
   left: 0;
-  /* display: none; */
   height: 85%;
   width: 100%;
   color: var(--dark-color);
@@ -336,13 +338,8 @@ textarea {
 }
 
 .editForm textarea {
-  font-size: var(--normal-font-size);
   width: 100%;
-  /* Adjust the calc() as needed to account for padding */
   height: 100%;
-  padding: 10px;
-  /* Adjust based on your layout and other buttons */
-  /* Add any additional styles for padding, borders, etc. */
 }
 
 .displayNotice {
@@ -360,9 +357,6 @@ textarea {
 }
 
 .footer {
-  /* position: sticky;
-  bottom: 0;
-  left: 0; */
   width: 100%;
   height: 80px;
   line-height: 80px;

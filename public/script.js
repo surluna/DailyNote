@@ -30,7 +30,7 @@ function updateInputCount() {
   let inputText = document.getElementById("fnote")
   let wordCount = document.getElementById("wordCount")
   let currentLength = inputText.value.length;
-  wordCount.textContent = currentLength + "/371"
+  wordCount.textContent = currentLength + "/400"
 }
 //vaildate form
 function validateForm() {
@@ -43,7 +43,7 @@ function validateForm() {
 //clean button
 function cleanInputContent() {
   document.getElementById("fnote").value = "";
-  wordCount.textContent = "0/371"
+  wordCount.textContent = "0/400"
 }
 
 // Delete function with DOM manipulation
