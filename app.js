@@ -73,6 +73,16 @@ app.get('/notes/check-date/:date', async (req, res) => {
     res.status(500).json({ message: "Error checking the note date." });
   }
 });
+app.get('/notes/check-date/:date/:noteId', async (req, res) => {
+  const { date, noteId } = req.params;
+  try {
+    const existingNote = await Note.findOne({ date, _id: { $ne: noteId } });
+    res.json({ exists: !!existingNote });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error checking for note date.' });
+  }
+});
 
 app.post('/notes', (req, res) => {
   const note = new Note({
@@ -118,21 +128,28 @@ app.get('/notes/:id', (req, res) => {
     });
 });
 
-app.post('/notes/update/:id', express.json(), (req, res) => {
+app.post('/notes/update/:id', express.json(), async (req, res) => {
   const id = req.params.id;
-  const updatedContent = req.body.content;
+  const { content, date } = req.body; // 使用解构赋值获取内容和日期
 
-  Note.findByIdAndUpdate(id, { content: updatedContent }, { new: true })
-    .then(result => {
-      if (!result) {
-        return res.status(404).json({ success: false, message: 'Note not found.' });
-      }
-      res.json({ success: true, message: 'Note updated successfully' });
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ success: false, message: 'Unable to update the note.' });
-    });
+  try {
+    // 使用 new Date(date) 来确保传入的日期是 Date 对象，如果 date 字段在模型中是 Date 类型的话
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      { content: content, date: new Date(date) },
+      { new: true, runValidators: true } // 添加 runValidators 选项以运行模式中设置的任何验证
+    );
+
+    if (!updatedNote) {
+      return res.status(404).json({ success: false, message: 'Note not found.' });
+    }
+
+    res.json({ success: true, message: 'Note updated successfully', note: updatedNote });
+  } catch (err) {
+    console.error(err);
+    // 这里可以进一步细化错误处理，例如区分验证错误和其他类型的错误
+    res.status(500).json({ success: false, message: 'Unable to update the note.' });
+  }
 });
 
 

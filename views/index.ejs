@@ -42,9 +42,11 @@
             <% storedNotes.forEach(function(note) { %>
               <li id="note-<%= note._id %>">
                 <div class="noteItem">
-                  <div class="noteDate">
+
+                  <div class="noteDate" id="displayDate-<%= note._id %>">
                     <%= note.formattedDate %>
                   </div>
+                  <input type="date" class="editDate" id="editDate-<%= note._id %>" value="<%= note.formattedDate %>">
                   <div class="noteActions">
                     <a href="javascript:void(0)" class="edit" data-doc="<%= note._id %>"
                       data-open-icon="img/editHover.png"><img src="img/defaultEdit.png" alt="Edit"></a>

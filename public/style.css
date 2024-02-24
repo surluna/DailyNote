@@ -342,6 +342,26 @@ textarea {
   height: 100%;
 }
 
+/* 
+.editDateBox {
+
+} */
+
+.editDate {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 0;
+  top: 8.75px;
+  height: 10%;
+  padding: 10px;
+  display: none;
+  font-weight: 600;
+  font-family: 'Fredoka', 'Roboto', sans-serif;
+  background-color: var(--white-color);
+  color: var(--dark-color);
+}
+
 .displayNotice {
   margin-top: 80px;
   line-height: 40px;
