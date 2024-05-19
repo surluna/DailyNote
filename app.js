@@ -13,7 +13,7 @@ const dbURI = process.env.DB_URI;
 mongoose.connect(dbURI)
   .then(() => {
     console.log('Database connection established successfully');
-    app.listen(3000, () => {
+    app.listen(5000, () => {
       console.log('Listening for requests on port 3000');
     });
   })
@@ -130,14 +130,13 @@ app.get('/notes/:id', (req, res) => {
 
 app.post('/notes/update/:id', express.json(), async (req, res) => {
   const id = req.params.id;
-  const { content, date } = req.body; // 使用解构赋值获取内容和日期
+  const { content, date } = req.body;
 
   try {
-    // 使用 new Date(date) 来确保传入的日期是 Date 对象，如果 date 字段在模型中是 Date 类型的话
     const updatedNote = await Note.findByIdAndUpdate(
       id,
       { content: content, date: new Date(date) },
-      { new: true, runValidators: true } // 添加 runValidators 选项以运行模式中设置的任何验证
+      { new: true, runValidators: true }
     );
 
     if (!updatedNote) {
@@ -147,7 +146,6 @@ app.post('/notes/update/:id', express.json(), async (req, res) => {
     res.json({ success: true, message: 'Note updated successfully', note: updatedNote });
   } catch (err) {
     console.error(err);
-    // 这里可以进一步细化错误处理，例如区分验证错误和其他类型的错误
     res.status(500).json({ success: false, message: 'Unable to update the note.' });
   }
 });
