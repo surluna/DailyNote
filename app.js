@@ -9,7 +9,7 @@ require("dotenv").config();
 const app = express();
 
 const dbURI = process.env.DB_URI;
-console.log("MongoDB URI:", dbURI); // 添加这一行进行调试
+console.log("MongoDB URI:", dbURI);
 mongoose
   .connect(dbURI)
   .then(() => {
